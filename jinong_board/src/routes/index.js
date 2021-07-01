@@ -7,15 +7,15 @@ import Error from '../components/Error.vue';
 
 const routes = [
   {
-	path: "/detail/:number",
+	path: "/board/:id",
 	component: Detail,
   },
   {
-	path: "/create",
+	path: "/board/create",
 	component: Create,
   },
   {
-	path: "/edit",
+	path: "/board/:id/edit",
 	component: Edit,
   },
   {

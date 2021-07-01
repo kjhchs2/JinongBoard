@@ -10,10 +10,10 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-			<router-link to="/" class="nav-link active" aria-current="page">게시글 보기</router-link>
+			<router-link to="/" class="nav-link active" aria-current="page">글보기</router-link>
 			</li>
 			<li class="nav-item">
-			<router-link to="/create" class="nav-link active">글 작성하기</router-link>
+			<router-link to="/board/create" class="nav-link active">글쓰기</router-link>
 			</li>
 		</ul>
 		</div>

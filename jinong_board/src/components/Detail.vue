@@ -1,12 +1,20 @@
 <template>
-  {{$route.params.number}}
-  detail
+    
+    <div class="card">
+        <div class="card-header"> {{posts[$route.params.id].title}} </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
+    name: 'detail',
     props :{
-
+        posts : Array,
     }
 }
 </script>
