@@ -4,6 +4,12 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import router from './routes/index.js'
+import axios from 'axios'
 
-createApp(App).use(router).mount('#app')
+
+const app = createApp(App).use(router)
+
+app.config.globalProperties.$axios = axios ;
+
+app.mount('#app')
 

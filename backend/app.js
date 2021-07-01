@@ -8,6 +8,8 @@ var mysql = require('mysql');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var router = express.Router();
+
 var app = express();
 
 // view engine setup
@@ -53,6 +55,13 @@ connenction.connect(function (err){
     throw err;
   }
 });
+
+router.get('api/create', function(req,res){
+  console.log(req);
+  console.log(res);
+  this.$router.push('/create');
+});
+
 
 module.exports = app;
 

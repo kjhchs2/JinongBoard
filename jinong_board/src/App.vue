@@ -22,6 +22,9 @@ export default {
       }]
     }
   },
+  created(){
+    console.log(this.$axios);
+  },
   methods : {
     // 함수 자리, 데이터 안에서 갖다 쓸거면 this.신고명 이런식으로 써야함
   },
