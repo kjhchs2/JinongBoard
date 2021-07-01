@@ -10,5 +10,5 @@ module.exports = {
         } 
       } 
     },
-    // outputDir: '../backend/public', 잘 모르겠구만..
+    outputDir: '../backend/public',
   }
