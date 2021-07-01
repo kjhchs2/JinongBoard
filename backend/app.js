@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
 });
 
 var connenction = mysql.createConnection({
-  host: 'ubuntu',
+  host: 'localhost',
   port: 3306,
   user: 'root',
   password: '1234',
