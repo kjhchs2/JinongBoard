@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
-router.get('/data', function(req, res, next){
+router.get('/post', function(req, res, next){
     try{
         const sql = 'SELECT * FROM posttable';
         mysql.query(sql, function(err, posts){
@@ -18,9 +18,21 @@ router.get('/data', function(req, res, next){
     }
 });
 
+router.get('/post/:id', function(req, res, next){
+    try{
+        const id = req.params.id;
+        const sql = `SELECT * FROM posttable WHERE id = ${id}`;
+        mysql.query(sql, function(err, posts){
+            res.send(posts);
+        })
+    } catch (e){
+        console.log(e);
+    }
+});
+
 
 // create post 요청
-router.post('/post/create', function(req, res, next) {
+router.post('/post', function(req, res, next) {
     try{
         const post = req.body;
         const sql = 'INSERT INTO posttable(title, contents, user, password, createdDate, modifiedDate) values ';
@@ -37,13 +49,38 @@ router.post('/post/create', function(req, res, next) {
         console.log(e);
         res.json(false);
     }
-    // redirect 필요
 });
 
-// connenction.query(`SELECT * FROM posttable`, (error, data)=>{
-//     this.data = data;
-//     console.log("query wan");
-// })
+router.put('/post/:id', function(req, res, next) {
+    try{
+        const post = req.body;
+        const sql = `UPDATE posttable SET title="${post.title}", user="${post.user}", contents="${post.contents}", password="${post.password}", modifiedDate=NOW() WHERE id = ${post.id}`
+        mysql.query(sql, function(err, rows, fields) {
+            if(!err) {
+                res.json(true);
+            } else {
+                console.log(err);
+                res.json(false);
+            }
+        });
+    } catch (e) {
+        console.log(e);
+        res.json(false);
+    }
+});
+
+router.delete('/post/:id', function(req, res, next){
+    try{
+        const id = req.params.id;
+        const sql = `DELETE FROM posttable WHERE id = ${id}`;
+        mysql.query(sql, function(err, posts){
+            res.send(posts);
+        })
+    } catch (e){
+        console.log(e);
+    }
+});
+
 
 
 

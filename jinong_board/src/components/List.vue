@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{props}}
     <table class="table">
       <thead>
         <tr>
@@ -12,9 +11,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr @click="$router.push('/board/'+i)" v-for="(post,i) in posts" :key=i >
+        <tr class="tr_cursor" @click="$router.push('/board/'+post.id)" v-for="(post,i) in posts" :key=i >
           <th scope="row">{{post.id}}</th>
-          <td class="tr_title" >{{post.title}}</td>
+          <td>{{post.title}}</td>
           <td>{{post.user}}</td>
           <td>{{post.createdDate}}</td>
           <td>{{post.modifiedDate}}</td>
@@ -35,10 +34,9 @@ export default {
 	props : {
 		posts : Array,
     },
-
 }
 </script>
 
 <style scoped>
-	.tr_title{cursor: pointer;}
+	.tr_cursor{cursor: pointer;}
 </style>

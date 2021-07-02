@@ -2,7 +2,7 @@
   <!-- <div> -->
 
     <NavBar />
-    <router-view :posts="posts"></router-view>
+    <router-view @updateData="update" :posts="posts"></router-view>
     
   <!-- </div> -->
 </template>
@@ -10,28 +10,30 @@
 <script>
 import NavBar from './components/NavBar.vue'
 import axios from 'axios'
-let posts = [];
 
 export default {
     name: 'App',
     data(){
         return{
-            posts
+            posts : []
         }
     },
-    created(){
-        axios.get('/data')
-        .then(res => {
-            this.posts = res.data;
-            console.log(this.posts);
-            console.log(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    mounted(){
+        this.update()
     },
     methods : {
-        // 함수 자리, 데이터 안에서 갖다 쓸거면 this.신고명 이런식으로 써야함
+        update(){
+            axios.get('/post')
+            .then(res => {
+                this.posts = [...res.data];
+                // this.$set(this.posts, res.data.length, res.data[res.data.length-1])
+                console.log(this.posts);
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     },
     components: {
         NavBar,
