@@ -45,7 +45,7 @@ export default {
             axios.post('/post', post)
             axios.get('/post')
             .then(res => {
-                id = res.data.length
+                id = res.data[res.data.length-1].id
                 this.$router.push('/board/'+id);
             })
             .catch(err => {

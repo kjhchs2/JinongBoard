@@ -27,8 +27,6 @@ export default {
             .then(res => {
                 this.posts = [...res.data];
                 // this.$set(this.posts, res.data.length, res.data[res.data.length-1])
-                console.log(this.posts);
-                console.log(res.data);
             })
             .catch(err => {
                 console.log(err);
