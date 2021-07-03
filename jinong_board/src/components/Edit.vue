@@ -50,7 +50,6 @@ export default {
         },
         editData(){
             var id = this.$route.params.id
-            console.log(id);
             var post = {'id': id, 'title': this.title, 'user' : this.user, 'password': this.password, 'contents' : this.contents,
                         'modifiedDate': this.modifiedDate
             };

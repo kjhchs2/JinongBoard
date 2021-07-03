@@ -16,7 +16,7 @@
             <span class="input-group-text" id="inputGroup-sizing-default">글내용</span>
             <textarea v-model="contents" style="height: 500px" type="text" class="form-control" aria-label="Sizing example textarea" aria-describedby="inputGroup-sizing-default" placeholder="내용을 입력해주세요." />
         </div>
-        <button @click="updateData(), register()" > 등록 </button>	 
+        <button @click="register()" > 등록 </button>	 
     </div>
 </template>
 
@@ -45,6 +45,7 @@ export default {
             axios.post('/post', post)
             axios.get('/post')
             .then(res => {
+                this.updateData();
                 id = res.data[res.data.length-1].id
                 this.$router.push('/board/'+id);
             })
