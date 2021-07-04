@@ -42,8 +42,8 @@ export default {
             var post = {'title': this.title, 'user' : this.user, 'password': this.password, 'contents' : this.contents,
                         'createdDate': this.createdDate, 'modifiedDate': this.modifiedDate
             };
-            axios.post('/post', post)
-            axios.get('/post')
+            axios.post('/api/post', post)
+            axios.get('/api/post')
             .then(res => {
                 this.updateData();
                 id = res.data[res.data.length-1].id

@@ -37,17 +37,21 @@ export default {
     },
     created(){
         var id = this.$route.params.id
-            axios.get("/post/"+id)
+            axios.get("/api/post/"+id)
             .then(res =>{
                 this.title=res.data[0].title;
                 this.user=res.data[0].user;
                 this.contents=res.data[0].contents;
+            })
+            .catch(err =>{
+                this.$router.push('/error');
+                console.log(err);
             });
     },
     methods:{
         editPost(){
             var id = this.$route.params.id
-            axios.get("/post/"+id)
+            axios.get("/api/post/"+id)
             .then(res =>{
                 if (this.password === res.data[0].password) {
                     this.$router.push('/board/'+id+'/edit');
@@ -58,10 +62,10 @@ export default {
         },
         deletePost(){
             var id = this.$route.params.id
-            axios.get("/post/"+id)
+            axios.get("/api/post/"+id)
             .then(res =>{
                 if (this.password === res.data[0].password) {
-                    axios.delete('/post/'+id);
+                    axios.delete('/api/post/'+id);
                     alert('글이 삭제되었습니다.')
                     this.updateData();
                     this.$router.push('/')

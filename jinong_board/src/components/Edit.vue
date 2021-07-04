@@ -36,7 +36,7 @@ export default {
     },
     mounted(){
         var id = this.$route.params.id
-        axios.get("/post/"+id)
+        axios.get("/api/post/"+id)
         .then(res =>{
             this.title = res.data[0].title
             this.user = res.data[0].user
@@ -53,7 +53,7 @@ export default {
             var post = {'id': id, 'title': this.title, 'user' : this.user, 'password': this.password, 'contents' : this.contents,
                         'modifiedDate': this.modifiedDate
             };
-            axios.put('/post/'+id, post)
+            axios.put('/api/post/'+id, post)
             .then(this.updateData());
             
             alert('글 내용이 수정되었습니다.')

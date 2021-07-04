@@ -4,6 +4,7 @@ import Create from '../components/Create.vue';
 import Edit from '../components/Edit.vue';
 import Detail from '../components/Detail.vue';
 import Error from '../components/Error.vue';
+import path from 'path';
 
 const routes = [
   {
@@ -29,6 +30,8 @@ const routes = [
 ];
 
 const router = createRouter({
+  index: path.resolve(__dirname, '../../backend/public/index.html'),
+  assetsRoot: path.resolve(__dirname, '../../backend/public'),
   history: createWebHistory(),
   routes,
 });
