@@ -36,17 +36,19 @@ export default {
         }
     },
     created(){
-        var id = this.$route.params.id
-            axios.get("/api/post/"+id)
-            .then(res =>{
-                this.title=res.data[0].title;
-                this.user=res.data[0].user;
-                this.contents=res.data[0].contents;
-            })
-            .catch(err =>{
-                this.$router.push('/error');
-                console.log(err);
-            });
+        var id = this.$route.params.id;
+        axios.get("/api/post/"+id)
+        .then(res =>{
+            this.title=res.data[0].title;
+            this.user=res.data[0].user;
+            this.contents=res.data[0].contents;
+        })
+        .catch(err =>{
+            alert("잘못된 접근입니다.");
+            this.updateData();
+            this.$router.push('/');
+            console.log(err);
+        });
     },
     methods:{
         editPost(){

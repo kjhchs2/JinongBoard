@@ -23,7 +23,7 @@ export default {
     },
     methods : {
         update(){
-            axios.get('/post')
+            axios.get('/api/post')
             .then(res => {
                 this.posts = [...res.data];
                 // this.$set(this.posts, res.data.length, res.data[res.data.length-1])

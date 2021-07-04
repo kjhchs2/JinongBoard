@@ -3,25 +3,17 @@ const router = express.Router();
 const path = require('path');
 const mysql = require('../bin/mysql');
 
-/* GET home page. */
+// index.html 연결
+router.get('/board/create', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '../public', 'index.html'))
+});
+router.get('/board/:id', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '../public', 'index.html'))
+});
 router.get('/', function(req, res, next) {
     // res.render('index', { title: 'Express' });
     res.sendFile(path.join(__dirname, '../public', 'index.html'))
 });
-
-router.get('/board/create', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'))
-    // res.render('index', { title: 'Express' });
-});
-router.get('/board/:id', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'))
-    // res.render('index', { title: 'Express' });
-});
-router.get('/:any(.*)', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'))
-    // res.render('index', { title: 'Express' });
-});
-
 
 // api
 router.get('/api/post', function(req, res, next){
