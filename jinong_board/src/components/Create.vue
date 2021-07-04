@@ -60,7 +60,7 @@ export default {
             }
             if (input.indexOf(" ")>=0){
                 alert("빈칸은 입력하실 수 없습니다.");
-                this.user = before;
+                this.password = before;
             }
         },
         contents(input, before){
