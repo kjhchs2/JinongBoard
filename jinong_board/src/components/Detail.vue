@@ -1,83 +1,103 @@
 <template>
   <div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">글제목</span>
-            <span type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" >{{title}}</span>
+            <span class="input-group-text">글제목</span>
+            <span type="text" class="form-control">{{title}}</span>
         </div>         
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">작성자</span>
-            <span type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> {{user}}</span>
-        </div> 
+            <span class="input-group-text">작성자</span>
+            <span type="text" class="form-control"> {{user}}</span>
+        </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">글내용</span>
-            <span style="height: 500px" type="text" class="form-control" aria-label="Sizing example textarea" aria-describedby="inputGroup-sizing-default" >{{contents}}</span>
+            <span class="input-group-text">작성일</span>
+            <span type="text" class="form-control"> {{createdDate}}</span>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">수정일</span>
+            <span type="text" class="form-control"> {{modifiedDate}}</span>
+        </div>   
+        <div class="input-group mb-3">
+            <span class="input-group-text">글내용</span>
+            <span type="text" class="form-control">{{contents}}</span>
         </div>
         <input v-model="password" type="password" style="align: center " placeholder="수정, 삭제시 비밀번호 입력"/>
         <br/>
-        <button @click="editPost()" > 수정 </button>	 
-        <button @click="deletePost()" > 삭제 </button>	 
+        <button @click="editPost()" class="btn btn-success"> 수정 </button>	 
+        <button @click="deletePost()" class="btn btn-warning"> 삭제 </button>	 
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios"
 
 export default {
-    name : 'detail',
-	props : {
-		posts : Array,
+    name: "detail",
+	props: {
+		posts: Array,
     },
     data(){
         return {
-            password : "",
+            password: "",
             title: "",
             user: "",
-            contents: ""
+            contents: "",
+            createdDate: "",
+            modifiedDate: ""
         }
     },
-    created(){
-        var id = this.$route.params.id;
+    created() {
+        let id = this.$route.params.id;
         axios.get("/api/post/"+id)
-        .then(res =>{
+        .then(res => {
             this.title=res.data[0].title;
             this.user=res.data[0].user;
             this.contents=res.data[0].contents;
+            this.createdDate=res.data[0].createdDate;
+            this.modifiedDate=res.data[0].modifiedDate;
         })
-        .catch(err =>{
+        .catch(err => {
             alert("잘못된 접근입니다.");
             this.updateData();
-            this.$router.push('/');
+            this.$router.push("/");
             console.log(err);
         });
     },
+    watch: {
+        password(input){
+            if (input.indexOf("\"")>=0) {
+                alert("큰 따옴표(\")는 입력하실 수 없습니다.");
+                this.password = "";
+            }
+        },
+    },
     methods:{
         editPost(){
-            var id = this.$route.params.id
-            axios.get("/api/post/"+id)
-            .then(res =>{
-                if (this.password === res.data[0].password) {
-                    this.$router.push('/board/'+id+'/edit');
-                }else{
-                    alert('비밀번호를 확인해주세요.')
+            let id = this.$route.params.id;
+            axios.post("/api/post/"+id+"/pw", {"password":this.password})
+            .then(res => {
+                if (res.data) {
+                    this.$router.push("/board/"+id+"/edit");
+                } else {
+                    alert("비밀번호를 확인해주세요.");
                 }
             })
         },
         deletePost(){
-            var id = this.$route.params.id
-            axios.get("/api/post/"+id)
-            .then(res =>{
-                if (this.password === res.data[0].password) {
-                    axios.delete('/api/post/'+id);
-                    alert('글이 삭제되었습니다.')
+            let id = this.$route.params.id;
+            axios.post("/api/post/"+id+"/pw", {"password":this.password})
+            .then(res => {
+                if (res.data) {
+                    axios.delete("/api/post/"+id);
+                    alert("글이 삭제되었습니다.")
                     this.updateData();
-                    this.$router.push('/')
-                }else{
-                    alert('비밀번호를 확인해주세요.')
+                    this.$router.push("/");
+                } else {
+                    alert("비밀번호를 확인해주세요.");
                 }
             })
         },
         updateData() {
-            this.$emit('updateData')
+            this.$emit("updateData");
         }
     }
 }

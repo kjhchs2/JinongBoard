@@ -1,32 +1,29 @@
 <template>
-  <!-- <div> -->
-
-    <NavBar />
-    <router-view @updateData="update" :posts="posts"></router-view>
-    
-  <!-- </div> -->
+    <div>
+        <NavBar />
+        <router-view @updateData="update" :posts="posts"/>
+    </div>
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue'
-import axios from 'axios'
+import NavBar from "./components/NavBar.vue"
+import axios from "axios"
 
 export default {
-    name: 'App',
-    data(){
+    name: "App",
+    data() {
         return{
             posts : []
         }
     },
-    mounted(){
+    mounted() {
         this.update()
     },
-    methods : {
+    methods: {
         update(){
-            axios.get('/api/post')
+            axios.get("/api/post")
             .then(res => {
                 this.posts = [...res.data];
-                // this.$set(this.posts, res.data.length, res.data[res.data.length-1])
             })
             .catch(err => {
                 console.log(err);
