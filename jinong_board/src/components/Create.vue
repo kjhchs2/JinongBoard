@@ -119,7 +119,7 @@ export default {
             if (input.length === 0) {
                 alert("내용을 입력해주세요.");
                 return false;
-            } else if (input.length > 100) {
+            } else if (input.length > 5000) {
                 alert("내용을 5000자 이내로 입력해주세요.");
                 return false;
             } else {
